@@ -9,18 +9,19 @@
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 ); 
         require('../util/conexion.php');
+        require('../util/depurar.php');
+        require('../util/validar.php');
     ?>
 </head>
 <body>
 
     <?php
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $id_producto = $_POST["id_producto"];
-        $nombre = $_POST["nombre"];
-        $precio = $_POST["precio"];
-        $categoria = $_POST["categoria"];
-        $stock = $_POST["stock"];
+        $id_producto = depurar($_POST["id_producto"]);
+        $nombre = depurar($_POST["nombre"]);
+        $precio = depurar($_POST["precio"]);
+        $categoria = depurar($_POST["categoria"]);
+        $stock = depurar($_POST["stock"]);
 
         $original_imagen = $_POST["original_imagen"];
         $direccion_temporal = $_FILES["imagen"]["tmp_name"];
@@ -32,7 +33,7 @@
             move_uploaded_file($direccion_temporal, $imagen);
         }
 
-        $descripcion = $_POST["descripcion"];
+        $descripcion = depurar($_POST["descripcion"]);
 
         $sql = "UPDATE productos SET
                     nombre = '$nombre',
@@ -103,8 +104,8 @@
             <div class="mb-3">
                 <input type="hidden" name="id_producto" value ="<?php echo $id_producto ?>">
                 <input class="btn btn-primary" type="submit" value="Editar">
+                <a class="btn btn-secondary" href="./index.php">Volver</a>
             </div>
-            <a href="./index.php">Volver</a>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
