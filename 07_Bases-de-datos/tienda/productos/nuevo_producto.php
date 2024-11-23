@@ -8,36 +8,37 @@
     <?php
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 ); 
-        
-        require('conexion.php');
+        require('../util/conexion.php');
     ?>
 </head>
 <body>
-    <a href="./index.php">Volver</a>
-    <?php
 
-    $sql = "SELECT * FROM fabricantes";
+    <?php
+    $sql = "SELECT * FROM categorias";
     $resultado = $_conexion -> query($sql);
-    $fabricantes = [];
+    $categorias = [];
 
     while ($fila = $resultado -> fetch_assoc()) {
-        array_push($fabricantes, $fila["fabricante"]);
+        array_push($categorias, $fila["categoria"]);
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre = $_POST["nombre"];
-        $fabricante = $_POST["fabricante"];
-        $generacion = $_POST["generacion"];
-        $unidades_vendidas = $_POST["unidades_vendidas"];
+        $precio = $_POST["precio"];
+        $categoria = $_POST["categoria"];
+        $stock = $_POST["stock"];
 
         $direccion_temporal = $_FILES["imagen"]["tmp_name"];
         $nombre_imagen = $_FILES["imagen"]["name"];
-        move_uploaded_file($direccion_temporal, "imagenes/$nombre_imagen");
+        $imagen = "../imagenes/$nombre_imagen";
+        move_uploaded_file($direccion_temporal, $imagen);
 
-        $sql = "INSERT INTO consolas
-            (nombre, fabricante, generacion, unidades_vendidas, imagen)
+        $descripcion = $_POST["descripcion"];
+
+        $sql = "INSERT INTO productos
+            (nombre, precio, categoria, stock, imagen, descripcion)
             VALUES
-            ('$nombre', '$fabricante', '$generacion', '$unidades_vendidas', './imagenes/$nombre_imagen')
+            ('$nombre', '$precio', '$categoria', '$stock', '$imagen', '$descripcion')
             ";
 
         $_conexion -> query($sql);
@@ -47,32 +48,38 @@
     <div class="container">
         <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label class="form-label">Nombre</label>
+                <label class="form-label">Nombre producto</label>
                 <input class="form-control" name="nombre" type="text">
             </div>
             <div class="mb-3">
-                <select name="fabricante">
+                <label class="form-label">Precio</label>
+                <input class="form-control" name="precio" type="text">
+            </div>
+            <div class="mb-3">
+                <select name="categoria">
+                    <option disabled selected hidden> -- ELIJA UNA -- </option>
                     <?php
-                    foreach($fabricantes as $fabricante) { ?>
-                        <option value="<?php echo $fabricante ?>"><?php echo $fabricante ?></option>
+                    foreach($categorias as $categoria) { ?>
+                        <option value="<?php echo $categoria ?>"><?php echo $categoria ?></option>
                     <?php }
                     ?>
                 </select>
             </div>
             <div class="mb-3">
-                <label class="form-label">Generacion</label>
-                <input class="form-control" name="generacion" type="text">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Unidades vendidas</label>
-                <input class="form-control" name="unidades_vendidas" type="text">
+                <label class="form-label">Stock</label>
+                <input class="form-control" name="stock" type="text">
             </div>
             <div class="mb-3">
                 <label class="form-label">Imagen</label>
                 <input class="form-control" name="imagen" type="file">
             </div>
             <div class="mb-3">
+                <label class="form-label">Descripcion</label>
+                <textarea class="form-control" name="descripcion"></textarea>
+            </div>
+            <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Crear">
+                <a class="btn btn-secondary" href="./index.php">Volver</a>
             </div>
         </form>
     </div>
