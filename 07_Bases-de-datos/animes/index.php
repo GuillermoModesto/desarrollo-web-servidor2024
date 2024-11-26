@@ -21,9 +21,17 @@
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 );
         require("./conexion.php");
+        session_start(); // si quiero acceder a las variables globales de session, tengo que invocarlo en el fichero que lo quiera usar
+        if (!isset($_SESSION["usuario"])) {
+            header("location: usuario/iniciar_sesion.php");
+            exit;
+        }
     ?>
 </head>
 <body>
+    <h4>Bienvenid@ <?php echo $_SESSION["usuario"] ?></h4>
+    <a href="usuario/cerrar_sesion.php" class="btn btn-danger">Cerrar sesión</a>
+    <h3>Animes</h3>
     <a href="./nuevo_anime.php">Nuevo anime</a>
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
