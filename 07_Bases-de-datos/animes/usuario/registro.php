@@ -26,6 +26,7 @@
     }
     ?>
     <div class="container">
+        <h3>Registro</h3>
         <form action="" method="post" enctype="multipart/form-data"> <!-- enctype, tipo de encriptación para enviar archivos por HTTP/HTTPS --> 
             <div class="mb-3">
                 <label class="form-label">Usuario</label>
@@ -37,8 +38,9 @@
             </div>
             <div class="mb-3">
             <div class="mb-3">
-                <input class="btn btn-primary" type="submit" value="Crear">
+                <input class="btn btn-primary" type="submit" value="Registrarse">
             </div>
+            <a href="iniciar_sesion.php" class="btn btn-secondary">Iniciar sesión</a>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
