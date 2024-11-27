@@ -47,7 +47,11 @@
     <div class="container">
         <form action="" method="post" enctype="multipart/form-data"> <!-- enctype, tipo de encriptación para enviar archivos por HTTP/HTTPS --> 
             <div class="mb-3">
-                <h3><?php echo $categoria["categoria"] ?></h3>
+                <label class="form-label">Categoria</label>
+                <input class="form-control" type="text" disabled
+                    value="<?php echo $categoria["categoria"] ?>">
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Descripcion</label>
                 <input class="form-control" name="descripcion" type="text"
                     value="<?php echo $categoria["descripcion"] ?>">

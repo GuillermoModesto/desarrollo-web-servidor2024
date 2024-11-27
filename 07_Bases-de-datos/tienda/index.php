@@ -17,8 +17,8 @@
 <body>
     <div class="container">
         <h1>Productos</h1>
-        <a class="btn btn-secondary" href="./productos/index.php">Productos</a>
-        <a class="btn btn-secondary" href="./categorias/index.php">Categorías</a>
+        <a class="btn btn-secondary" href="./usuario/iniciar_sesion.php">Iniciar sesión</a>
+        <a class="btn btn-secondary" href="./usuario/registro.php">Registrarse</a>
         <?php
             $sql = "SELECT * FROM productos";
             $resultado = $_conexion -> query($sql);
