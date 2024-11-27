@@ -109,7 +109,7 @@ function validar ($validar, $tipo1, $tipo2) {
                     return true;
                     break;
                 /* ------ CONTRASEÑA ------ */
-                case "nombre":
+                case "contrasena":
                     if ($validar == "")
                         return "La contraseña es obligatoria.";
 

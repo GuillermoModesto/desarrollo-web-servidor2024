@@ -8,6 +8,7 @@
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 ); 
         require('./util/conexion.php');
+        session_start();
     ?>
     <style>
         img{
@@ -17,8 +18,16 @@
 <body>
     <div class="container">
         <h1>Productos</h1>
-        <a class="btn btn-secondary" href="./usuario/iniciar_sesion.php">Iniciar sesión</a>
-        <a class="btn btn-secondary" href="./usuario/registro.php">Registrarse</a>
+        <?php
+        if (isset($_SESSION["usuario"])) { ?>
+            <h3>Bienvenido <?php echo $_SESSION["usuario"] ?></h3>
+            <a class="btn btn-secondary" href="./productos/index.php">Productos</a>
+            <a class="btn btn-secondary" href="./categorias/index.php">Categorías</a>
+        <?php } else { ?>
+            <a class="btn btn-secondary" href="./usuario/iniciar_sesion.php">Iniciar sesión</a>
+            <a class="btn btn-secondary" href="./usuario/registro.php">Registrarse</a>
+        <?php }
+        ?>
         <?php
             $sql = "SELECT * FROM productos";
             $resultado = $_conexion -> query($sql);

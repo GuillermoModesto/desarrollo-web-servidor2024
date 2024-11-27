@@ -8,21 +8,51 @@
     <?php
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 ); 
-        
         require('../util/conexion.php');
+        require('../util/depurar.php');
+        require('../util/validar.php');
     ?>
 </head>
 <body>
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST")
-    {
-        $usuario = $_POST["usuario"];
-        $contrasena = $_POST["contrasena"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $error = 0;
 
-        $contrasena_cifrado = password_hash($contrasena, PASSWORD_DEFAULT);
+        $tmp_usuario = depurar($_POST["usuario"]);
+        $val_usuario = validar($tmp_usuario, "usuario", "nombre");
+        if ($val_usuario === true) {
+            $sql = "SELECT * FROM usuarios WHERE usuario = '$tmp_usuario'";
+            $resultado = $_conexion -> query($sql);
+            if ($resultado -> num_rows == 0) {
+                $usuario = $tmp_usuario;
+            } else {
+                $error++;
+                $val_usuario = "El usuario ya está registrado.";
+            }
+        } else {
+            $error++;
+        }
+        
 
-        $sql = "INSERT INTO usuarios VALUES ('$usuario', '$contrasena_cifrado')";
-        $_conexion -> query($sql);
+        $tmp_contrasena = depurar($_POST["contrasena"]);
+        $val_contrasena = validar($tmp_contrasena, "usuario", "contrasena");
+        if ($val_contrasena === true) {
+            $contrasena = $tmp_contrasena;
+        } else {
+            $error++;
+        }
+
+        if ($error === 0) {
+            $contrasena_cifrado = password_hash($contrasena, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO usuarios VALUES ('$usuario', '$contrasena_cifrado')";
+            $_conexion -> query($sql);
+
+            if (isset($error) && $error === 0) { ?>
+            <div class="alert alert-success" role="alert">
+                Registrado con exito.
+            </div>
+            <?php }
+        }
     }
     ?>
     <div class="container">
@@ -31,10 +61,18 @@
             <div class="mb-3">
                 <label class="form-label">Usuario</label>
                 <input class="form-control" name="usuario" type="text">
+                <?php if (isset($val_usuario) && $val_usuario !== true) { ?> 
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $val_usuario; ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Contraseña</label>
                 <input class="form-control" name="contrasena" type="password">
+                <?php if (isset($val_contrasena) && $val_contrasena !== true) { ?> 
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $val_contrasena; ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
             <div class="mb-3">

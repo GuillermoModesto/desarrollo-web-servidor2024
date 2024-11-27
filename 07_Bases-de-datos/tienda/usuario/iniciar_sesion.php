@@ -30,19 +30,23 @@
         public 'num_rows' => int 1
         public 'type' => int 0
         */
-        if ($resultado -> num_rows == 0) {
-            echo "<h2>El usuario no existe</h2>";
-        } else {
+        
+        if ($resultado -> num_rows == 0) { ?> 
+        <div class="alert alert-danger" role="alert">
+            <?php echo "El usuario no existe." ?>
+        </div> <?php } 
+        else {
             $info_usuario = $resultado -> fetch_assoc();
             $accesso_concedido = password_verify($contrasena, $info_usuario["contrasena"]);
-            if (!$accesso_concedido) {
-                echo "<h2>Contraseña equivocada</h2>";
-            } else {
-                //echo "<h2>P'adentro</h2>";
-                session_start(); // crea la sesión para guardar información que será global hasta que se apaque el navegador
+            if (!$accesso_concedido) { ?> 
+            <div class="alert alert-danger" role="alert">
+                <?php echo "Contraseña erronea." ?>
+            </div> <?php }  
+            else {
+                session_start();
                 $_SESSION["usuario"] = $usuario;
-                header("location: ../index.php"); // como un enlace instantaneo
-                exit; // mata al fichero YA
+                header("location: ../index.php");
+                exit;
             }
         }
     }
