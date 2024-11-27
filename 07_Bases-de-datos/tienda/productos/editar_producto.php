@@ -16,36 +16,6 @@
 <body>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $id_producto = depurar($_POST["id_producto"]);
-        $nombre = depurar($_POST["nombre"]);
-        $precio = depurar($_POST["precio"]);
-        $categoria = depurar($_POST["categoria"]);
-        $stock = depurar($_POST["stock"]);
-
-        $original_imagen = $_POST["original_imagen"];
-        $direccion_temporal = $_FILES["imagen"]["tmp_name"];
-        if ($direccion_temporal == "")
-            $imagen = $original_imagen;
-        else {
-            $nombre_imagen = $_FILES["imagen"]["name"];
-            $imagen = "../imagenes/$nombre_imagen";
-            move_uploaded_file($direccion_temporal, $imagen);
-        }
-
-        $descripcion = depurar($_POST["descripcion"]);
-
-        $sql = "UPDATE productos SET
-                    nombre = '$nombre',
-                    precio = '$precio',
-                    categoria = '$categoria',
-                    stock = '$stock',
-                    imagen = '$imagen',
-                    descripcion = '$descripcion'
-                WHERE id_producto = $id_producto";
-
-        $_conexion -> query($sql);
-    }
 
     $sql = "SELECT * FROM categorias";
     $resultado = $_conexion -> query($sql);
@@ -53,6 +23,64 @@
 
     while ($fila = $resultado -> fetch_assoc()) {
         array_push($categorias, $fila["categoria"]);
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $error = 0;
+
+        $id_producto = depurar($_POST["id_producto"]);
+
+        $tmp_nombre = depurar($_POST["nombre"]);
+        $val_nombre = validar($tmp_nombre, "producto", "nombre");
+        if ($val_nombre === true)
+            $nombre = $tmp_nombre;
+        else
+            $error++;
+
+        $tmp_precio = depurar($_POST["precio"]);
+        $val_precio = validar($tmp_precio, "producto", "precio");
+        if ($val_precio === true)
+            $precio = $tmp_precio;
+        else
+            $error++;
+
+        $tmp_categoria = depurar($_POST["categoria"]);
+        $val_categoria = validar_categoria($tmp_categoria, $categorias);
+        if ($val_categoria === true)
+            $categoria = $tmp_categoria;
+        else
+            $error++;
+
+        $tmp_stock = depurar($_POST["stock"]);
+        $val_stock = validar($tmp_stock, "producto", "stock");
+        if ($val_stock === true)
+            $stock = $tmp_stock;
+        else
+            $error++;
+
+        $original_imagen = $_POST["original_imagen"];
+        $direccion_temporal = $_FILES["imagen"]["tmp_name"];
+        if ($direccion_temporal == "")
+            $imagen = $original_imagen;
+        else {
+            $imagen = $_FILES["imagen"]["name"];
+            move_uploaded_file($direccion_temporal, "../imagenes/$imagen");
+        }
+
+        $descripcion = depurar($_POST["descripcion"]);
+
+        if ($error === 0) {
+                $sql = "UPDATE productos SET
+                nombre = '$nombre',
+                precio = '$precio',
+                categoria = '$categoria',
+                stock = '$stock',
+                imagen = '$imagen',
+                descripcion = '$descripcion'
+            WHERE id_producto = $id_producto";
+
+            $_conexion -> query($sql);
+        }
     }
 
     $id_producto = $_GET["id_producto"];
@@ -68,11 +96,19 @@
                 <label class="form-label">Nombre producto</label>
                 <input class="form-control" name="nombre" type="text"
                     value="<?php echo $producto["nombre"] ?>">
+                <?php if (isset($val_nombre) && $val_nombre !== true) { ?> 
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $val_nombre; ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Precio</label>
                 <input class="form-control" name="precio" type="text"
                     value="<?php echo $producto["precio"] ?>">
+                <?php if (isset($val_precio) && $val_precio !== true) {?> 
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $val_precio; ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <select name="categoria">
@@ -84,12 +120,20 @@
                         <option value="<?php echo $categoria ?>"><?php echo $categoria ?></option>
                     <?php }
                     ?>
+                    <?php if (isset($val_categoria) && $val_categoria !== true) {?> 
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $val_categoria; ?>
+                    </div> <?php } ?>
                 </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Stock</label>
                 <input class="form-control" name="stock" type="text"
                     value="<?php echo $producto["stock"] ?>">
+                <?php if (isset($val_stock) && $val_stock !== true) {?> 
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $val_stock;  ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Imagen</label>
@@ -100,12 +144,23 @@
                 <label class="form-label">Descripcion</label>
                 <input class="form-control" name="descripcion" type="text"
                     value="<?php echo $producto["descripcion"] ?>">
+                <?php if (isset($val_descripcion) && $val_descripcion !== true) {?> 
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $val_descripcion; ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <input type="hidden" name="id_producto" value ="<?php echo $id_producto ?>">
                 <input class="btn btn-primary" type="submit" value="Editar">
                 <a class="btn btn-secondary" href="./index.php">Volver</a>
             </div>
+            <?php 
+            if (isset($error) && $error === 0) { ?>
+            <div class="alert alert-success" role="alert">
+                Producto editado correctamente.
+            </div>
+            <?php }
+            ?>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

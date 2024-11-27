@@ -9,26 +9,57 @@ function validar ($validar, $tipo1, $tipo2) {
                 case "nombre":
                     if ($validar == "")
                         return "El nombre del producto es obligatorio.";
+
+                    if (strlen($validar) <= 2)
+                        return "El nombre del producto no puede tener menos de 2 caracteres.";
+
                     if (strlen($validar) > 50)
                         return "El nombre del producto no puede tener mas de 50 caracteres.";
+
+                    $patron = "/^[a-zA-Z\ áéíóúÁÉÍÓÚñÑ1234567890]+$/";
+                    if (!preg_match($patron, $validar))
+                        return "Formato inválido. Solo se admiten letras, números y espacios en blanco.";
+
                     return true;
                     break;
                 /* ------ PRECIO ------ */
                 case "precio":
                     if ($validar == "")
                         return "El precio del producto es obligatorio.";
+
                     if (!is_numeric($validar))
                         return "EL precio debe ser un número";
+
+                    if ($validar < 0)
+                        return "El precio debe ser positivo.";
+
+                    $patron = "/^[0-9]{1,4}(\.[0-9]{1,2})?$/";
+                    if (!preg_match($patron, $validar))
+                        return "Solo se admiten valores numéricos entre 00.00 y 9999.99";
+
                     return true;
                     break;
                 /* ------ STOCK ------ */
                 case "stock":
+                    if ($validar == "")
+                        return "El stock del producto es obligatorio.";
+
                     if (!is_numeric($validar))
                         return "EL stock debe ser un número";
+
+                    if ($validar < 0)
+                        return "El stock debe ser positivo.";
+
+                    if ($validar > 999)
+                        return "El stock no puede ser superior a 999";
+
                     return true;
                     break;
                 /* ------ DESCRIPCION ------ */
                 case "descripcion":
+                    if (strlen($validar) > 255)
+                        return "La descripción no puede tener mas de 255 caracteres";
+
                     return true;
                     break;
             }
@@ -38,9 +69,20 @@ function validar ($validar, $tipo1, $tipo2) {
             switch ($tipo2) {
                 /* ------ CATEGORIA ------ */
                 case "categoria":
+                    if (strlen($validar) <= 2)
+                        return "El nombre de la categoría no puede tener menos de 2 caracteres.";
+
+                    if (strlen($validar) > 30)
+                        return "El nombre de la categoría no puede tener mas de 30 caracteres.";
+
+                    return true;
                     break;
                 /* ------ DESCRIPCION ------ */
                 case "descripcion";
+                    if (strlen($validar) > 255)
+                        return "La descripción no puede tener mas de 255 caracteres";
+
+                    return true;
                     break;
             }
     }

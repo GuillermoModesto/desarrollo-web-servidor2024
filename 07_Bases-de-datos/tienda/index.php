@@ -7,7 +7,7 @@
     <?php
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 ); 
-        require('../util/conexion.php');
+        require('./util/conexion.php');
     ?>
     <style>
         img{
@@ -17,14 +17,9 @@
 <body>
     <div class="container">
         <h1>Productos</h1>
-        <a class="btn btn-secondary" href="./nuevo_producto.php">Nuevo producto</a>
-        <a class="btn btn-secondary" href="../categorias/index.php">Categorias</a>
+        <a class="btn btn-secondary" href="./productos/index.php">Productos</a>
+        <a class="btn btn-secondary" href="./categorias/index.php">Categorías</a>
         <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $id_producto = $_POST["id_producto"];
-                $sql = "DELETE FROM productos WHERE id_producto = '$id_producto'";
-                $_conexion -> query($sql);
-            }
             $sql = "SELECT * FROM productos";
             $resultado = $_conexion -> query($sql);
         ?>
@@ -37,8 +32,6 @@
                     <th>Stock</th>
                     <th>Imagen</th>
                     <th>Descripcion</th>
-                    <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -49,15 +42,13 @@
                             <td><?php echo $fila["precio"] ?></td>
                             <td><?php echo $fila["categoria"] ?></td>
                             <td><?php echo $fila["stock"] ?></td>
-                            <td><img src="<?php echo $fila["imagen"] ?>" alt="Imagen de producto"></td>
+                            <td><img src="./imagenes/<?php echo $fila["imagen"] ?>" alt="Imagen de producto"></td>
                             <td><?php echo $fila["descripcion"] ?></td>
                             <td>
                                 <form action="" method="post">
                                     <input type="hidden" name="id_producto" value="<?php echo $fila["id_producto"] ?>">
-                                    <input class="btn btn-danger" type="submit" value="Eliminar">
                                 </form>
                             </td>
-                            <td><a class="btn btn-secondary" href="editar_producto.php?id_producto=<?php echo $fila["id_producto"] ?>">Editar</a></td>
                         </tr>
                     <?php }
                 ?>

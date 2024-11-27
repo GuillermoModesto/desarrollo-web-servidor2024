@@ -13,11 +13,29 @@
     <div class="container">
         <h1>Categorias</h1>
         <a class="btn btn-secondary" href="./nueva_categoria.php">Nueva categoria</a>
+        <a class="btn btn-secondary" href="../productos/index.php">Productos</a>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $categoria = $_POST["categoria"];
-                $sql = "DELETE FROM categorias WHERE categoria = '$categoria'";
-                $_conexion -> query($sql);
+
+                $sql = "SELECT * FROM productos WHERE categoria = '$categoria'";
+                $resultado = $_conexion -> query($sql);
+                if ($resultado -> num_rows != 0) {
+                    $fila = [];
+                    $con_stock = [];
+                    while ($fila = $resultado -> fetch_assoc()) {
+                        if ($fila["stock"] != 0)
+                            array_push($con_stock, $fila);
+                    }
+                }
+                if (!empty($con_stock)) { ?>
+                    <div class="alert alert-warning">La categoría tiene productos con stock y no se puede eliminar.</div>
+                <?php } else {
+                    $sql = "DELETE FROM productos WHERE categoria = '$categoria'";
+                    $_conexion -> query($sql);
+                    $sql = "DELETE FROM categorias WHERE categoria = '$categoria'";
+                    $_conexion -> query($sql);
+                }
             }
             $sql = "SELECT * FROM categorias";
             $resultado = $_conexion -> query($sql);

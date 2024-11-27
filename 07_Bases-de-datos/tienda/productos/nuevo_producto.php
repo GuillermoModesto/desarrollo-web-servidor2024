@@ -70,14 +70,14 @@
 
         $direccion_temporal = $_FILES["imagen"]["tmp_name"];
         $nombre_imagen = $_FILES["imagen"]["name"];
-        $imagen = "../imagenes/$nombre_imagen";
-        move_uploaded_file($direccion_temporal, $imagen);
+        $imagen = $nombre_imagen;
+        move_uploaded_file($direccion_temporal, "../imagenes/$imagen");
 
         if ($error === 0) {
             $sql = "INSERT INTO productos
             (nombre, precio, categoria, stock, imagen, descripcion)
             VALUES
-            ('$nombre', '$precio', '$categoria', '$stock', '$imagen', '$descripcion')
+            ('$nombre', '$precio', '$categoria', '$stock', '../imagenes/$imagen', '$descripcion')
             ";
 
             $resultado = $_conexion -> query($sql);
