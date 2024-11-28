@@ -99,7 +99,7 @@
                 <label class="form-label">Nombre producto</label>
                 <input class="form-control" name="nombre" type="text">
                 <?php if (isset($val_nombre) && $val_nombre !== true) { ?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_nombre; ?>
                 </div> <?php } ?>
             </div>
@@ -107,7 +107,7 @@
                 <label class="form-label">Precio</label>
                 <input class="form-control" name="precio" type="text">
                 <?php if (isset($val_precio) && $val_precio !== true) {?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_precio; ?>
                 </div> <?php } ?>
             </div>
@@ -121,7 +121,7 @@
                     ?>
                 </select>
                 <?php if (isset($val_categoria) && $val_categoria !== true) {?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_categoria; ?>
                 </div> <?php } ?>
             </div>
@@ -129,7 +129,7 @@
                 <label class="form-label">Stock</label>
                 <input class="form-control" name="stock" type="text">
                 <?php if (isset($val_stock) && $val_stock !== true) {?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_stock;  ?>
                 </div> <?php } ?>
             </div>
@@ -141,7 +141,7 @@
                 <label class="form-label">Descripcion</label>
                 <textarea class="form-control" name="descripcion"></textarea>
                 <?php if (isset($val_descripcion) && $val_descripcion !== true) {?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_descripcion; ?>
                 </div> <?php } ?>
             </div>

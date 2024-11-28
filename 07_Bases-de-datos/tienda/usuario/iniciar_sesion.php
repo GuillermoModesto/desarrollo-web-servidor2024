@@ -21,46 +21,40 @@
 
         $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
         $resultado = $_conexion -> query($sql);
-        /*
-        var_dump($resultado);
-        object(mysqli_result)[2]
-        public 'current_field' => int 0
-        public 'field_count' => int 2
-        public 'lengths' => null
-        public 'num_rows' => int 1
-        public 'type' => int 0
-        */
-        
-        if ($resultado -> num_rows == 0) { ?> 
-        <div class="alert alert-danger" role="alert">
-            <?php echo "El usuario no existe." ?>
-        </div> <?php } 
-        else {
+
+        if ($resultado -> num_rows != 0) { 
             $info_usuario = $resultado -> fetch_assoc();
             $accesso_concedido = password_verify($contrasena, $info_usuario["contrasena"]);
-            if (!$accesso_concedido) { ?> 
-            <div class="alert alert-danger" role="alert">
-                <?php echo "Contraseña erronea." ?>
-            </div> <?php }  
-            else {
+            if ($accesso_concedido) {
                 session_start();
                 $_SESSION["usuario"] = $usuario;
                 header("location: ../index.php");
                 exit;
             }
+        } else {
+            $existe_usuario = false;
         }
     }
     ?>
     <div class="container">
         <h3>Iniciar sesión</h3>
-        <form action="" method="post" enctype="multipart/form-data"> <!-- enctype, tipo de encriptación para enviar archivos por HTTP/HTTPS --> 
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Usuario</label>
                 <input class="form-control" name="usuario" type="text">
+                <?php if (isset($existe_usuario) && $existe_usuario === false) { ?> 
+                <div class="alert alert-danger col-3" role="alert">
+                    <?php echo "El usuario no existe." ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Contraseña</label>
                 <input class="form-control" name="contrasena" type="password">
+                <?php if (isset($accesso_concedido) && !$accesso_concedido) { ?> 
+                <div class="alert alert-danger col-3" role="alert">
+                    <?php echo "Contraseña erronea." ?>
+                </div> 
+                <?php } ?>
             </div>
             <div class="mb-3">
             <div class="mb-3">

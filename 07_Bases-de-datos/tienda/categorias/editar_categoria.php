@@ -60,6 +60,10 @@
                 <label class="form-label">Descripcion</label>
                 <input class="form-control" name="descripcion" type="text"
                     value="<?php echo $categoria["descripcion"] ?>">
+                <?php if (isset($val_descripcion) && $val_descripcion !== true) { ?> 
+                <div class="alert alert-danger col-3" role="alert">
+                    <?php echo $val_descripcion; ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <input type="hidden" name="categoria" value ="<?php echo $categoria["categoria"] ?>">

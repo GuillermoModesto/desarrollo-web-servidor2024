@@ -58,21 +58,21 @@
                 <label class="form-label">Categoria</label>
                 <input class="form-control" name="categoria" type="text">
                 <?php if (isset($val_categoria) && $val_categoria !== true) { ?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_categoria; ?>
                 </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Descripcion</label>
                 <textarea class="form-control" name="descripcion"></textarea>
+                <?php if (isset($val_descripcion) && $val_descripcion !== true) { ?> 
+                <div class="alert alert-danger col-3" role="alert">
+                    <?php echo $val_descripcion; ?>
+                </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Crear">
                 <a class="btn btn-secondary" href="./index.php">Volver</a>
-                <?php if (isset($val_descripcion) && $val_descripcion !== true) { ?> 
-                <div class="alert alert-danger" role="alert">
-                    <?php echo $val_descripcion; ?>
-                </div> <?php } ?>
             </div>
             <?php 
             if (isset($error) && $error === 0) { ?>

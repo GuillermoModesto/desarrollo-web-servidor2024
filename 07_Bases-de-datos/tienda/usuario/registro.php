@@ -48,7 +48,7 @@
             $_conexion -> query($sql);
 
             if (isset($error) && $error === 0) { ?>
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success col-3" role="alert">
                 Registrado con exito.
             </div>
             <?php }
@@ -62,7 +62,7 @@
                 <label class="form-label">Usuario</label>
                 <input class="form-control" name="usuario" type="text">
                 <?php if (isset($val_usuario) && $val_usuario !== true) { ?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_usuario; ?>
                 </div> <?php } ?>
             </div>
@@ -70,7 +70,7 @@
                 <label class="form-label">Contraseña</label>
                 <input class="form-control" name="contrasena" type="password">
                 <?php if (isset($val_contrasena) && $val_contrasena !== true) { ?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_contrasena; ?>
                 </div> <?php } ?>
             </div>

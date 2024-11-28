@@ -20,7 +20,7 @@
         <h1>Productos</h1>
         <?php
         if (isset($_SESSION["usuario"])) { ?>
-            <h3>Bienvenido <?php echo $_SESSION["usuario"] ?></h3>
+            <h3>Bienvenid@ <?php echo $_SESSION["usuario"] ?></h3>
             <a class="btn btn-secondary" href="./productos/index.php">Productos</a>
             <a class="btn btn-secondary" href="./categorias/index.php">Categorías</a>
         <?php } else { ?>

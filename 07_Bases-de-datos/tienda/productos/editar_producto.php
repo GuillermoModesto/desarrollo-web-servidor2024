@@ -96,13 +96,13 @@
     ?>
 
     <div class="container">
-        <form action="" method="post" enctype="multipart/form-data"> <!-- enctype, tipo de encriptación para enviar archivos por HTTP/HTTPS --> 
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Nombre producto</label>
                 <input class="form-control" name="nombre" type="text"
                     value="<?php echo $producto["nombre"] ?>">
                 <?php if (isset($val_nombre) && $val_nombre !== true) { ?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_nombre; ?>
                 </div> <?php } ?>
             </div>
@@ -111,7 +111,7 @@
                 <input class="form-control" name="precio" type="text"
                     value="<?php echo $producto["precio"] ?>">
                 <?php if (isset($val_precio) && $val_precio !== true) {?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_precio; ?>
                 </div> <?php } ?>
             </div>
@@ -126,7 +126,7 @@
                     <?php }
                     ?>
                     <?php if (isset($val_categoria) && $val_categoria !== true) {?> 
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger col-3" role="alert">
                         <?php echo $val_categoria; ?>
                     </div> <?php } ?>
                 </select>
@@ -136,7 +136,7 @@
                 <input class="form-control" name="stock" type="text"
                     value="<?php echo $producto["stock"] ?>">
                 <?php if (isset($val_stock) && $val_stock !== true) {?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_stock;  ?>
                 </div> <?php } ?>
             </div>
@@ -150,14 +150,14 @@
                 <input class="form-control" name="descripcion" type="text"
                     value="<?php echo $producto["descripcion"] ?>">
                 <?php if (isset($val_descripcion) && $val_descripcion !== true) {?> 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger col-3" role="alert">
                     <?php echo $val_descripcion; ?>
                 </div> <?php } ?>
             </div>
             <div class="mb-3">
                 <input type="hidden" name="id_producto" value ="<?php echo $id_producto ?>">
                 <input class="btn btn-primary" type="submit" value="Editar">
-                <a class="btn btn-secondary" href="./index.php">Volver</a>
+                <a class="btn btn-secondary col-3" href="./index.php">Volver</a>
             </div>
             <?php 
             if (isset($error) && $error === 0) { ?>
