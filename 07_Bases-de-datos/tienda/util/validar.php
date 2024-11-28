@@ -41,9 +41,6 @@ function validar ($validar, $tipo1, $tipo2) {
                     break;
                 /* ------ STOCK ------ */
                 case "stock":
-                    if ($validar == "")
-                        return "El stock del producto es obligatorio.";
-
                     if (!is_numeric($validar))
                         return "EL stock debe ser un número";
 
@@ -57,6 +54,9 @@ function validar ($validar, $tipo1, $tipo2) {
                     break;
                 /* ------ DESCRIPCION ------ */
                 case "descripcion":
+                    if ($validar == "")
+                        return "La descripción es obligatoria.";
+
                     if (strlen($validar) > 255)
                         return "La descripción no puede tener mas de 255 caracteres";
 

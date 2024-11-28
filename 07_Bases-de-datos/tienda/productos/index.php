@@ -24,6 +24,7 @@
         <h1>Productos</h1>
         <a class="btn btn-secondary" href="./nuevo_producto.php">Nuevo producto</a>
         <a class="btn btn-secondary" href="../categorias/index.php">Categorias</a>
+        <a class="btn btn-secondary" href="../usuario/cerrar_sesion.php">Cerrar sesión</a>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id_producto = $_POST["id_producto"];

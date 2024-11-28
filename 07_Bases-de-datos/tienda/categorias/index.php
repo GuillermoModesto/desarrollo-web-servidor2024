@@ -19,6 +19,7 @@
         <h1>Categorias</h1>
         <a class="btn btn-secondary" href="./nueva_categoria.php">Nueva categoria</a>
         <a class="btn btn-secondary" href="../productos/index.php">Productos</a>
+        <a class="btn btn-secondary" href="../usuario/cerrar_sesion.php">Cerrar sesión</a>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $categoria = $_POST["categoria"];

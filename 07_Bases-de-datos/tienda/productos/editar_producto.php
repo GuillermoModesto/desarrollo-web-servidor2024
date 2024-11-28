@@ -75,7 +75,7 @@
         $descripcion = depurar($_POST["descripcion"]);
 
         if ($error === 0) {
-                $sql = "UPDATE productos SET
+            $sql = "UPDATE productos SET
                 nombre = '$nombre',
                 precio = '$precio',
                 categoria = '$categoria',

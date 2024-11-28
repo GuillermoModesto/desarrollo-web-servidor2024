@@ -23,6 +23,8 @@
             <h3>Bienvenid@ <?php echo $_SESSION["usuario"] ?></h3>
             <a class="btn btn-secondary" href="./productos/index.php">Productos</a>
             <a class="btn btn-secondary" href="./categorias/index.php">Categorías</a>
+            <a class="btn btn-secondary" href="./usuario/cerrar_sesion.php">Cerrar sesión</a>
+            <a class="btn btn-secondary" href="./usuario/cambiar_credenciales.php">Cambiar contraseña</a>
         <?php } else { ?>
             <a class="btn btn-secondary" href="./usuario/iniciar_sesion.php">Iniciar sesión</a>
             <a class="btn btn-secondary" href="./usuario/registro.php">Registrarse</a>
