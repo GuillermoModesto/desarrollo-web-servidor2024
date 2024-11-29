@@ -50,6 +50,7 @@
     ?>
 
     <div class="container">
+        <a class="btn btn-secondary" href="./index.php">Volver</a>
         <form action="" method="post" enctype="multipart/form-data"> <!-- enctype, tipo de encriptación para enviar archivos por HTTP/HTTPS --> 
             <div class="mb-3">
                 <label class="form-label">Categoria</label>
@@ -68,7 +69,6 @@
             <div class="mb-3">
                 <input type="hidden" name="categoria" value ="<?php echo $categoria["categoria"] ?>">
                 <input class="btn btn-primary" type="submit" value="Editar">
-                <a class="btn btn-secondary" href="./index.php">Volver</a>
             </div>
             <?php 
             if (isset($error) && $error === 0) { ?>

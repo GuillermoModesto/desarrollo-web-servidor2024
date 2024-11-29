@@ -121,7 +121,7 @@ function validar ($validar, $tipo1, $tipo2) {
 
                     $patron = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/";
                     if (!preg_match($patron, $validar))
-                        return "Formato inválido.";
+                        return "Formato inválido. La contraseña debe contener al menos una letra mayúscula y un número.";
 
                     return true;
                     break;

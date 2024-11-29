@@ -72,7 +72,12 @@
             move_uploaded_file($direccion_temporal, "../imagenes/$imagen");
         }
 
-        $descripcion = depurar($_POST["descripcion"]);
+        $tmp_descripcion = depurar($_POST["descripcion"]);
+        $val_descripcion = validar($tmp_descripcion, "producto", "descripcion");
+        if ($val_descripcion === true)
+            $descripcion = $tmp_descripcion;
+        else
+            $error++;
 
         if ($error === 0) {
             $sql = "UPDATE productos SET
@@ -80,7 +85,7 @@
                 precio = '$precio',
                 categoria = '$categoria',
                 stock = '$stock',
-                imagen = '$imagen',
+                imagen = '../imagenes/$imagen',
                 descripcion = '$descripcion'
             WHERE id_producto = $id_producto";
 
@@ -157,7 +162,7 @@
             <div class="mb-3">
                 <input type="hidden" name="id_producto" value ="<?php echo $id_producto ?>">
                 <input class="btn btn-primary" type="submit" value="Editar">
-                <a class="btn btn-secondary col-3" href="./index.php">Volver</a>
+                <a class="btn btn-secondary" href="./index.php">Volver</a>
             </div>
             <?php 
             if (isset($error) && $error === 0) { ?>

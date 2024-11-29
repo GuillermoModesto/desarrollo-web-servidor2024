@@ -21,10 +21,14 @@
     </style>
 <body>
     <div class="container">
+        <?php if (isset($_SESSION["usuario"])) { ?>
+            <h3>Bienvenid@ <?php echo $_SESSION["usuario"] ?></h3>
+        <?php } ?>
         <h1>Productos</h1>
         <a class="btn btn-secondary" href="./nuevo_producto.php">Nuevo producto</a>
         <a class="btn btn-secondary" href="../categorias/index.php">Categorias</a>
         <a class="btn btn-secondary" href="../usuario/cerrar_sesion.php">Cerrar sesión</a>
+        <a class="btn btn-secondary" href="./usuario/cambiar_credenciales.php">Cambiar contraseña</a>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id_producto = $_POST["id_producto"];

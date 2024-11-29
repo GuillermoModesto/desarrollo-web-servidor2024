@@ -46,19 +46,18 @@
             $contrasena_cifrado = password_hash($contrasena, PASSWORD_DEFAULT);
             $sql = "INSERT INTO usuarios VALUES ('$usuario', '$contrasena_cifrado')";
             $_conexion -> query($sql);
-
-            if (isset($error) && $error === 0) { ?>
-            <div class="alert alert-success col-3" role="alert">
-                Registrado con exito.
-            </div>
-            <?php }
         }
     }
     ?>
     <div class="container">
         <h3>Registro</h3>
-        <form action="" method="post" enctype="multipart/form-data"> <!-- enctype, tipo de encriptación para enviar archivos por HTTP/HTTPS --> 
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
+                <?php if (isset($error) && $error === 0) { ?>
+                <div class="alert alert-success col-3" role="alert">
+                    Registrado con exito.
+                </div>
+                <?php } ?>
                 <label class="form-label">Usuario</label>
                 <input class="form-control" name="usuario" type="text">
                 <?php if (isset($val_usuario) && $val_usuario !== true) { ?> 
