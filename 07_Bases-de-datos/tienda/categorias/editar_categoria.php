@@ -37,7 +37,7 @@
         if ($error === 0) {
             $sql = "UPDATE categorias SET
                 descripcion = '$descripcion'
-            WHERE categoria = '$categoria'";
+            WHERE nombre = '$categoria'";
 
             $_conexion -> query($sql);
         }

@@ -42,7 +42,7 @@
 
         if ($error === 0) {
             $sql = "INSERT INTO categorias
-                (categoria, descripcion)
+                (nombre, descripcion)
                 VALUES
                 ('$categoria', '$descripcion')
                 ";

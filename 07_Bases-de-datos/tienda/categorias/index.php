@@ -39,7 +39,7 @@
                 <?php } else {
                     $sql = "DELETE FROM productos WHERE categoria = '$categoria'";
                     $_conexion -> query($sql);
-                    $sql = "DELETE FROM categorias WHERE categoria = '$categoria'";
+                    $sql = "DELETE FROM categorias WHERE nombre = '$categoria'";
                     $_conexion -> query($sql);
                 }
             }

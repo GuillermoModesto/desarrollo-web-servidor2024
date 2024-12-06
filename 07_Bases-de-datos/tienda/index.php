@@ -33,8 +33,6 @@
             <a class="btn btn-secondary" href="./usuario/iniciar_sesion.php">Iniciar sesión</a>
             <a class="btn btn-secondary" href="./usuario/registro.php">Registrarse</a>
         <?php }
-        ?>
-        <?php
             $sql = "SELECT * FROM productos";
             $resultado = $_conexion -> query($sql);
         ?>
@@ -59,11 +57,6 @@
                             <td><?php echo $fila["stock"] ?></td>
                             <td><img src="./imagenes/<?php echo $fila["imagen"] ?>" alt="Imagen de producto"></td>
                             <td><?php echo $fila["descripcion"] ?></td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="hidden" name="id_producto" value="<?php echo $fila["id_producto"] ?>">
-                                </form>
-                            </td>
                         </tr>
                     <?php }
                 ?>
