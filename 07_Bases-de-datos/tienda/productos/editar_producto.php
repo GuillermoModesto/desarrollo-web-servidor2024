@@ -27,7 +27,7 @@
     $categorias = [];
 
     while ($fila = $resultado -> fetch_assoc()) {
-        array_push($categorias, $fila["categoria"]);
+        array_push($categorias, $fila["nombre"]);
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

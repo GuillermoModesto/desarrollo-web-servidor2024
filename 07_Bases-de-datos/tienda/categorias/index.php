@@ -22,7 +22,7 @@
         <a class="btn btn-secondary" href="../usuario/cerrar_sesion.php">Cerrar sesión</a>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $categoria = $_POST["categoria"];
+                $categoria = $_POST["nombre"];
 
                 $sql = "SELECT * FROM productos WHERE categoria = '$categoria'";
                 $resultado = $_conexion -> query($sql);
@@ -59,15 +59,15 @@
                 <?php
                     while($fila = $resultado -> fetch_assoc()) { ?>
                         <tr>
-                            <td><?php echo $fila["categoria"] ?></td>
+                            <td><?php echo $fila["nombre"] ?></td>
                             <td><?php echo $fila["descripcion"] ?></td>
                             <td>
                                 <form action="" method="post">
-                                    <input type="hidden" name="categoria" value="<?php echo $fila["categoria"] ?>">
+                                    <input type="hidden" name="nombre" value="<?php echo $fila["nombre"] ?>">
                                     <input class="btn btn-danger" type="submit" value="Eliminar">
                                 </form>
                             </td>
-                            <td><a class="btn btn-secondary" href="editar_categoria.php?categoria=<?php echo $fila["categoria"] ?>">Editar</a></td>
+                            <td><a class="btn btn-secondary" href="editar_categoria.php?nombre=<?php echo $fila["nombre"] ?>">Editar</a></td>
                         </tr>
                     <?php }
                 ?>

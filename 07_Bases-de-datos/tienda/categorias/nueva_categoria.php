@@ -53,7 +53,6 @@
     ?>
 
     <div class="container">
-        <a class="btn btn-secondary" href="./index.php">Volver</a>
         <form action="" method="post">
             <div class="mb-3">
                 <label class="form-label">Categoria</label>
@@ -73,6 +72,7 @@
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Crear">
+                <a class="btn btn-secondary" href="./index.php">Volver</a>
             </div>
             <?php 
             if (isset($error) && $error === 0) { ?>

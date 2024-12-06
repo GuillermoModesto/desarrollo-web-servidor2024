@@ -43,19 +43,18 @@
         }
     }
 
-    $_categoria = $_GET["categoria"];
-    $sql = "SELECT * FROM categorias WHERE categoria = '$_categoria'";
+    $_categoria = $_GET["nombre"];
+    $sql = "SELECT * FROM categorias WHERE nombre = '$_categoria'";
     $resultado = $_conexion -> query($sql);
     $categoria = $resultado -> fetch_assoc();
     ?>
 
     <div class="container">
-        <a class="btn btn-secondary" href="./index.php">Volver</a>
         <form action="" method="post" enctype="multipart/form-data"> <!-- enctype, tipo de encriptación para enviar archivos por HTTP/HTTPS --> 
             <div class="mb-3">
                 <label class="form-label">Categoria</label>
                 <input class="form-control" type="text" disabled
-                    value="<?php echo $categoria["categoria"] ?>">
+                    value="<?php echo $categoria["nombre"] ?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Descripcion</label>
@@ -67,8 +66,9 @@
                 </div> <?php } ?>
             </div>
             <div class="mb-3">
-                <input type="hidden" name="categoria" value ="<?php echo $categoria["categoria"] ?>">
+                <input type="hidden" name="categoria" value ="<?php echo $categoria["nombre"] ?>">
                 <input class="btn btn-primary" type="submit" value="Editar">
+                <a class="btn btn-secondary" href="./index.php">Volver</a>
             </div>
             <?php 
             if (isset($error) && $error === 0) { ?>
